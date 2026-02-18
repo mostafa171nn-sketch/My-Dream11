@@ -1,0 +1,274 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --primary-color: #268f9f;
+  --secondary-color: #00b7b5;
+  --accent-color: #00b7b5;
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Custom animations */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes gradient-xy {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient-xy {
+  animation: gradient-xy 3s ease infinite;
+  background-size: 300% 300%;
+}
+
+@keyframes footerGradient {
+  0% { background-position: 0% 50%; }
+  25% { background-position: 100% 50%; }
+  50% { background-position: 200% 50%; }
+  75% { background-position: 300% 50%; }
+  100% { background-position: 400% 50%; }
+}
+
+.gradient-text {
+  background: linear-gradient(45deg, var(--accent-color), var(--secondary-color), var(--primary-color));
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 3s ease-in-out infinite;
+}
+
+.footer-gradient-text {
+  background: linear-gradient(90deg, #FF6B6B, #4ECDC4, #45B7D1, #96CEB4, #FFEAA7, #DDA0DD, #FF6B6B);
+  background-size: 400% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: footerGradient 4s ease-in-out infinite;
+}
+
+/* Smooth transitions */
+.transition-all {
+  transition: all 0.3s ease !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-color);
+}
+
+/* Rotating gradient border animation */
+@keyframes rotBGimg {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.rotating-gradient-border {
+  position: relative;
+  border-radius: 20px;
+  overflow: visible;
+  z-index: 1;
+}
+
+.rotating-gradient-border::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: white;
+  border-radius: 18px;
+  z-index: 0;
+}
+
+.rotating-gradient-border > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Dark mode styles */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+  --navbar-bg: #1a1a2e;
+  --card-bg: #1a1a2e;
+  --card-border: #2d2d44;
+  --footer-bg: #1a1a2e;
+}
+
+.dark body {
+  background: #0a0a0a;
+  color: #ffffff;
+}
+
+.dark .card {
+  background: var(--card-bg);
+  border-color: var(--card-border);
+}
+
+/* Animated Face Theme Toggle - From Uiverse.io by Danishrehman786 */
+.toggle-container {
+  position: relative;
+  width: 160px;
+  height: 80px;
+}
+
+.toggle-input {
+  display: none;
+}
+
+.toggle-label {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 140px;
+  height: 60px;
+  background: #fbbf24;
+  border-radius: 30px;
+  box-shadow: 0 5px #f59e0b;
+  transition: background 0.3s ease-in-out;
+  cursor: pointer;
+  padding: 0 10px;
+}
+
+/* When checked (dark mode) - show dark face */
+.toggle-input:checked + .toggle-label {
+  background: #252422;
+  box-shadow: 0 5px #484d48;
+}
+
+/* When not checked (light mode) - show yellow/white face */
+.toggle-input:not(:checked) + .toggle-label {
+  background: #fbbf24;
+  box-shadow: 0 5px #f59e0b;
+}
+
+.face {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.eye {
+  position: relative;
+  width: 13px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+  transition: all 0.3s ease-in-out;
+}
+
+.smile {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  width: 60px;
+  height: 20px;
+  border: 3.50px solid transparent;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  transition: all 0.3s ease-in-out;
+}
+
+.toggle-switch {
+  position: relative;
+  width: 35px;
+  height: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+  margin: 0 10px;
+  z-index: 1;
+}
+
+.toggle-switch:before {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #fbbf24;
+  border-radius: 50%;
+  transition: all 0.3s ease-in-out;
+  top: 50%;
+  left: 3px;
+  transform: translateY(-50%);
+}
+
+.toggle-input:checked + .toggle-label .toggle-switch:before {
+  background: #252422;
+  left: 16px;
+}
+
+.toggle-input:checked + .toggle-label .smile {
+  border-bottom-color: #fff;
+  border-top: none;
+  bottom: 10px;
+}
+
+.toggle-input:not(:checked) + .toggle-label .smile {
+  border-top-color: #fff;
+  border-bottom: none;
+  bottom: 0;
+}
+
+.toggle-label:hover .eye {
+  width: 20px;
+  height: 20px;
+}
+
+@keyframes blink {
+  0%,
+  90%,
+  100% {
+    height: 10px;
+  }
+  95% {
+    height: 2px;
+  }
+}
+
+.left-eye {
+  animation: blink 2s infinite;
+}
+
+.right-eye {
+  animation: blink 2s infinite;
+}
