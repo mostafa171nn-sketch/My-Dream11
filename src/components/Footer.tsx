@@ -98,7 +98,7 @@ const Footer = () => {
               </li>
               <li>
                 <a 
-                  href="https://www.facebook.com/share/15sk8ZA1UX/" 
+                  href="https://www.facebook.com/share/1fuxRx1sgj/" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="text-white/90 hover:text-blue-400 transition-colors duration-300 flex items-center space-x-2"
@@ -124,7 +124,7 @@ const Footer = () => {
               </li>
               <li>
                 <a 
-                  href="https://wa.me/01115636975" 
+                  href="https://www.tiktok.com/@my.dream.swimming?_r=1&_t=ZS-940hMKy6YAG" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="text-white/90 hover:text-black transition-colors duration-300 flex items-center space-x-2"

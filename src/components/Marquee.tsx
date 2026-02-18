@@ -12,9 +12,7 @@ const Marquee = () => {
           animation: 'marquee 25s linear infinite',
         }}
       >
-        <span className="mx-4 text-white text-xl font-bold">
-          ✨ Transform Your Dreams Into Reality ✨
-        </span>
+       
         <span className="mx-4 text-white text-xl font-bold">
           🏆 Best Training Academy 🏆
         </span>

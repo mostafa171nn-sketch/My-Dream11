@@ -6,7 +6,7 @@ const gridItems = [
   {
     image: '/images/grid1.jpg',
     title: 'Joumana hamdy',
-    subtitle: '2006',
+    subtitle: '2007',
     link: '/about'
   },
   
@@ -46,7 +46,7 @@ const gridItems = [
   {
     image: '/images/grid8.jpg',
     title: 'Yara shref / Jomana',
-    subtitle: '2009 / 2006',
+    subtitle: '2009 / 2007',
     link: '/about'
   },
   {

@@ -85,6 +85,8 @@ const Hero = () => {
 
       {/* Content */}
       <div ref={heroRef} className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+        {/* Logo Image */}
+       
         <h1 className="text-5xl md:text-7xl font-bold mb-6">
           <span className="gradient-text">MY Dream</span>
           <br />

@@ -14,6 +14,11 @@ export const metadata: Metadata = {
     description: "Personalized coaching and training to unlock your potential.",
     type: "website",
   },
+  icons: {
+    icon: "/logoo.jpeg",
+    shortcut: "/logoo.jpeg",
+    apple: "/logoo.jpeg",
+  },
 };
 
 export default function RootLayout({
