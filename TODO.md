@@ -1,11 +1,9 @@
-# TODO: Dark Mode Implementation
+# TODO - Star Animated Button Implementation
 
 ## Plan:
-- [x] Update src/components/Navbar.tsx - Add dark mode adaptive styling
-- [x] Update src/app/globals.css - Add comprehensive dark mode CSS variables
-- [x] Update src/components/Hero.tsx - Add dark: variant to hardcoded colors
-- [x] Update src/components/Footer.tsx - Add dark mode support
+- [ ] 1. Add CSS styles to globals.css for the star button
+- [ ] 2. Update Hero.tsx to replace the existing Link with the animated button
 
-- [x] Test the dark mode toggle functionality
-
-## Status: Completed
+## Files to Edit:
+- src/app/globals.css - Add button and star CSS styles
+- src/components/Hero.tsx - Replace Link with custom button with stars
