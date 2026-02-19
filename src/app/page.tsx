@@ -74,7 +74,7 @@ export default function Home() {
 
             <Link
               href="/about"
-              className="  inline-block bg-blue-600 mt-8 text-white px-8 py-4 rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+              className=" mt-6 inline-block bg-gradient-to-r from-blue-600 to-cyan-400 hover:from-blue-700 hover:to-cyan-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300"
             >
               للتفاصيل اضغط هنا
             </Link>

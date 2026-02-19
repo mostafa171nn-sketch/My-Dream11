@@ -22,8 +22,8 @@ const Footer = () => {
   }
 
   return (
-    <footer className="bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-gray-900 dark:to-gray-800 text-white py-12">
-      <div className="container mx-auto px-4">
+    <footer className="bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-gray-900 dark:to-gray-800 text-white py-12 relative overflow-hidden">
+      <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo Section */}
           <div className="flex flex-col items-center text-center">
@@ -159,9 +159,12 @@ const Footer = () => {
         {/* Copyright */}
         <div className="border-t border-white/20 mt-8 pt-6">
           <div className="text-center">
-            <span className="text-sm text-white/90">
-              © 2026 <Link href="/" className="text-white/90 hover:text-white">Created By : Mostafa Omar</Link>
+            <span className="text-md ">
+             <Link href="/" className="text-gray-600"> © 2026 Created By : Mostafa Omar</Link>
             </span>
+            <p className="text-sm flex items-center justify-center gap-2 mt-2 text-gray-600">
+              <span>📞</span> 01111695090
+            </p>
           </div>
         </div>
       </div>

@@ -165,6 +165,16 @@ export default function About() {
                 <p className="text-lg font-bold text-gray-800 dark:text-gray-200">مدير الأكاديمية</p>
                 <p className="text-2xl font-bold text-blue-600 dark:text-cyan-400">ك / حلمي</p>
               </div>
+              
+              {/* Join Us Now Button */}
+              <div className="mt-6 text-center">
+                <a 
+                  href="/contact" 
+                  className="inline-block bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300"
+                >
+                  انضم الينا الان
+                </a>
+              </div>
             </div>
           </div>
           

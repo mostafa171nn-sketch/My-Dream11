@@ -824,3 +824,133 @@ body {
 .fil0 {
   fill: #4c83fa;
 }
+
+/* Footer Colorful Animations */
+@keyframes rainbowGlow {
+  0% { box-shadow: 0 0 10px #ff6b6b, 0 0 20px #ff6b6b; }
+  16% { box-shadow: 0 0 10px #4ecdc4, 0 0 20px #4ecdc4; }
+  33% { box-shadow: 0 0 10px #45b7d1, 0 0 20px #45b7d1; }
+  50% { box-shadow: 0 0 10px #96ceb4, 0 0 20px #96ceb4; }
+  66% { box-shadow: 0 0 10px #ffeaa7, 0 0 20px #ffeaa7; }
+  83% { box-shadow: 0 0 10px #dda0dd, 0 0 20px #dda0dd; }
+  100% { box-shadow: 0 0 10px #ff6b6b, 0 0 20px #ff6b6b; }
+}
+
+@keyframes colorWave {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+}
+
+.footer-rainbow-glow {
+  animation: rainbowGlow 3s linear infinite;
+}
+
+.footer-animated-bg {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab, #f39c12, #9b59b6);
+  background-size: 400% 400%;
+  animation: colorWave 5s ease infinite;
+}
+
+.footer-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.footer-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Colorful hover effects for social links */
+.social-link-instagram:hover {
+  color: #e1306c !important;
+  text-shadow: 0 0 10px #e1306c, 0 0 20px #e1306c;
+  transform: scale(1.1);
+}
+
+.social-link-facebook:hover {
+  color: #1877f2 !important;
+  text-shadow: 0 0 10px #1877f2, 0 0 20px #1877f2;
+  transform: scale(1.1);
+}
+
+.social-link-whatsapp:hover {
+  color: #25d366 !important;
+  text-shadow: 0 0 10px #25d366, 0 0 20px #25d366;
+  transform: scale(1.1);
+}
+
+.social-link-tiktok:hover {
+  color: #ffffff !important;
+  text-shadow: 0 0 10px #ffffff, 0 0 20px #ff0050;
+  transform: scale(1.1);
+}
+
+/* Rainbow border animation */
+@keyframes rainbowBorder {
+  0% { border-color: #ff6b6b; }
+  16% { border-color: #4ecdc4; }
+  33% { border-color: #45b7d1; }
+  50% { border-color: #96ceb4; }
+  66% { border-color: #ffeaa7; }
+  83% { border-color: #dda0dd; }
+  100% { border-color: #ff6b6b; }
+}
+
+.footer-rainbow-border {
+  border: 3px solid;
+  animation: rainbowBorder 3s linear infinite;
+}
+
+/* Colorful dots animation */
+@keyframes dotWave {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(-5px); opacity: 0.5; }
+}
+
+.colorful-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin: 0 3px;
+}
+
+.colorful-dot-1 {
+  background: #ff6b6b;
+  animation: dotWave 1s ease-in-out infinite;
+}
+
+.colorful-dot-2 {
+  background: #4ecdc4;
+  animation: dotWave 1s ease-in-out infinite 0.2s;
+}
+
+.colorful-dot-3 {
+  background: #45b7d1;
+  animation: dotWave 1s ease-in-out infinite 0.4s;
+}
+
+.colorful-dot-4 {
+  background: #96ceb4;
+  animation: dotWave 1s ease-in-out infinite 0.6s;
+}
+
+.colorful-dot-5 {
+  background: #ffeaa7;
+  animation: dotWave 1s ease-in-out infinite 0.8s;
+}
+
+.colorful-dot-6 {
+  background: #dda0dd;
+  animation: dotWave 1s ease-in-out infinite 1s;
+}
