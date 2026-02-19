@@ -9,9 +9,19 @@ const gridItems = [
     subtitle: '2007',
     link: '/about'
   },
-  
-  
- 
+  {
+    image: '/images/3.jpg',
+    title: 'khadija sameh / hala elarby',
+    subtitle: '2010/1010',
+    link: '/about'
+  },
+  {
+    image:   '/images/2.jpg',
+
+    title: 'yahya mohamed',
+    subtitle: '2007',
+    link: '/about'
+  },
   
   {
     image: '/images/grid3.jpg',
@@ -39,16 +49,11 @@ const gridItems = [
   },
   {
     image: '/images/grid7.jpg',
-    title: 'Khadija',
+    title: 'Khadija Sameh',
     subtitle: '2009',
     link: '/about'
   },
-  {
-    image: '/images/grid8.jpg',
-    title: 'Yara shref / Jomana',
-    subtitle: '2009 / 2007',
-    link: '/about'
-  },
+ 
   {
     image: '/images/grid5.jpg',
     title: 'Omar ',

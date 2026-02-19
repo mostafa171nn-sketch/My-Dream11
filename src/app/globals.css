@@ -233,8 +233,8 @@ body {
 }
 
 .toggle-input:checked + .toggle-label .toggle-switch:before {
-  background: #252422;
-  left: 16px;
+  background: #252421;
+  left: 10px;
 }
 
 .toggle-input:checked + .toggle-label .smile {
@@ -673,7 +673,13 @@ body {
     transform: translateY(10px);
   }
 }
-
+.sasa{
+  margin-left: -19% !important;
+  padding: 0% !important;
+  border: 0% !important;
+  border-radius: 100%;
+  margin-top: 2%;
+}
 /* Star Animated Button Styles */
 .hotly-el-css-button {
   position: relative;

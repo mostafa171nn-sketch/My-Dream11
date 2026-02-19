@@ -6,23 +6,8 @@ import { usePathname } from 'next/navigation';
 const Footer = () => {
   const pathname = usePathname();
 
-  if (pathname === '/dashboard') {
-    return (
-      <footer className="bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-gray-900 dark:to-gray-800 text-white py-4">
-        <div className="container mx-auto px-4">
-          <div className="text-center">
-            <p className="text-sm">BY: Mostafa</p>
-            <p className="text-sm flex items-center justify-center gap-2">
-              <span>📞</span> 01111695090
-            </p>
-          </div>
-        </div>
-      </footer>
-    );
-  }
-
   return (
-    <footer className="bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-gray-900 dark:to-gray-800 text-white py-12 relative overflow-hidden">
+    <footer className="bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-gray-900 dark:to-gray-800 text-white py-10 relative overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo Section */}

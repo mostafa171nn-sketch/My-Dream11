@@ -1,9 +1,8 @@
-# TODO - Star Animated Button Implementation
+# TODO - PhotoCarousel - Add Sasa, Yassin, and Khaled
 
 ## Plan:
-- [ ] 1. Add CSS styles to globals.css for the star button
-- [ ] 2. Update Hero.tsx to replace the existing Link with the animated button
+- [x] 1. Add Sasa, Yassin, and Khaled images to the PhotoCarousel images array
+- [x] 2. Add captions/names for these three people
 
-## Files to Edit:
-- src/app/globals.css - Add button and star CSS styles
-- src/components/Hero.tsx - Replace Link with custom button with stars
+## Files Edited:
+- src/components/PhotoCarousel.tsx - Added the three images and their captions

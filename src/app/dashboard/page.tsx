@@ -3,6 +3,8 @@
 import { useState, useEffect, useRef } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { collection, getDocs, updateDoc, doc, deleteDoc, onSnapshot, query, orderBy } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
 interface ContactMessage {
   id: string;
@@ -10,7 +12,7 @@ interface ContactMessage {
   category: string;
   phone: string;
   message: string;
-  date: string;
+  date: any;
   status: 'pending' | 'waiting' | 'confirmed';
 }
 
@@ -56,90 +58,60 @@ export default function Dashboard() {
   const [globalSearch, setGlobalSearch] = useState('');
   const lastSeenMessageIdRef = useRef<string | null>(null);
 
-  // Load waiting list from localStorage on mount
+  // Load contact messages from Firebase Firestore with real-time updates
   useEffect(() => {
-    const storedWaitingList = localStorage.getItem('waitingList');
-    if (storedWaitingList) {
-      setWaitingList(JSON.parse(storedWaitingList));
-    }
-  }, []);
-
-  useEffect(() => {
-    // Load contact messages from localStorage
-    const storedMessages = localStorage.getItem('contactMessages');
-    if (storedMessages) {
-      const messages = JSON.parse(storedMessages);
+    // Set up real-time listener for contactMessages collection
+    const q = query(collection(db, 'contactMessages'), orderBy('date', 'desc'));
+    
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const messages: ContactMessage[] = [];
+      snapshot.forEach((doc) => {
+        messages.push({
+          id: doc.id,
+          ...doc.data()
+        } as ContactMessage);
+      });
+      
       setContactMessages(messages);
-      // Track the last message ID
+      
+      // Track the last message for notifications
       if (messages.length > 0) {
-        lastSeenMessageIdRef.current = messages[messages.length - 1].id;
-      }
-    }
-    setLoading(false);
-  }, []);
-
-  // Poll for new messages every 5 seconds
-  useEffect(() => {
-    const checkForNewMessages = () => {
-      const storedMessages = localStorage.getItem('contactMessages');
-      if (storedMessages) {
-        const messages = JSON.parse(storedMessages);
-        
-        if (messages.length > 0) {
-          const latestMessageId = messages[messages.length - 1].id;
-          
-          // Check if there's a new message by comparing IDs
-          if (latestMessageId !== lastSeenMessageIdRef.current) {
-            setContactMessages(messages);
-            
-            // Play notification sound for every new message
+        const latestMessageId = messages[0].id;
+        if (latestMessageId !== lastSeenMessageIdRef.current) {
+          // New message arrived
+          if (lastSeenMessageIdRef.current !== null) {
             playNotificationSound();
             setHasNewMessage(true);
-            lastSeenMessageIdRef.current = latestMessageId;
-            
-            // Reset the notification badge after 10 seconds
             setTimeout(() => {
               setHasNewMessage(false);
             }, 10000);
           }
+          lastSeenMessageIdRef.current = latestMessageId;
         }
       }
-    };
+      
+      setLoading(false);
+    }, (error) => {
+      console.error('Error fetching messages:', error);
+      setLoading(false);
+    });
 
-    // Check immediately on mount
-    checkForNewMessages();
-
-    // Set up interval for polling
-    const interval = setInterval(checkForNewMessages, 5000);
-
-    return () => clearInterval(interval);
+    return () => unsubscribe();
   }, []);
 
   // Clear notification flag when user manually refreshes
   const handleRefresh = () => {
     setHasNewMessage(false);
-    const storedMessages = localStorage.getItem('contactMessages');
-    if (storedMessages) {
-      const messages = JSON.parse(storedMessages);
-      setContactMessages(messages);
-      if (messages.length > 0) {
-        lastSeenMessageIdRef.current = messages[messages.length - 1].id;
-      }
-    }
+    // Messages are automatically updated via Firebase real-time listener
   };
 
-  const handleDeleteMessage = (id: string) => {
+  const handleDeleteMessage = async (id: string) => {
     if (confirm('Are you sure you want to delete this message?')) {
-      // Delete from main contact messages
-      const updatedMessages = contactMessages.filter(msg => msg.id !== id);
-      setContactMessages(updatedMessages);
-      localStorage.setItem('contactMessages', JSON.stringify(updatedMessages));
-      
-      // Also remove from waiting list if exists
-      const updatedWaitingList = waitingList.filter(msg => msg.id !== id);
-      if (updatedWaitingList.length !== waitingList.length) {
-        setWaitingList(updatedWaitingList);
-        localStorage.setItem('waitingList', JSON.stringify(updatedWaitingList));
+      try {
+        await deleteDoc(doc(db, 'contactMessages', id));
+      } catch (error) {
+        console.error('Error deleting document: ', error);
+        alert('Failed to delete message. Please try again.');
       }
     }
   };
@@ -225,10 +197,10 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#1f2937]">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#1f2937] flex flex-col">
       <Navbar />
       
-      <main className="py-8 px-4">
+      <main className="flex-grow py-8 px-4">
         <div className="container mx-auto max-w-6xl">
           <div className="flex items-center justify-between mb-8">
             <h1 className="text-3xl font-bold text-gray-800 dark:text-white">Dashboard - Contact Messages</h1>

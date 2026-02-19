@@ -1,8 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
+
+interface FloatingHeart {
+  id: number;
+  x: number;
+  delay: number;
+}
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -13,6 +21,7 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [floatingHearts, setFloatingHearts] = useState<FloatingHeart[]>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -25,32 +34,131 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Create contact message object
-    const contactMessage = {
-      id: Date.now().toString(),
-      name: formData.name,
-      category: formData.category,
-      phone: formData.phone,
-      message: formData.message,
-      date: new Date().toISOString()
-    };
+    // Create floating hearts
+    const hearts: FloatingHeart[] = [];
+    for (let i = 0; i < 20; i++) {
+      hearts.push({
+        id: Date.now() + i,
+        x: Math.random() * 100,
+        delay: Math.random() * 0.5
+      });
+    }
+    setFloatingHearts(hearts);
     
-    // Save to localStorage
-    const existingMessages = JSON.parse(localStorage.getItem('contactMessages') || '[]');
-    localStorage.setItem('contactMessages', JSON.stringify([...existingMessages, contactMessage]));
-    
-    // Simulate form submission delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    setIsSubmitting(false);
-    setShowSuccess(true);
-    setFormData({ name: '', category: '', phone: '', message: '' });
-    
-    setTimeout(() => setShowSuccess(false), 5000);
+    try {
+      // Add to Firestore
+      const docRef = await addDoc(collection(db, 'contactMessages'), {
+        name: formData.name,
+        category: formData.category || '',
+        phone: formData.phone || '',
+        message: formData.message,
+        date: new Date().toISOString(),
+        status: 'pending'
+      });
+      
+      console.log('Document written with ID: ', docRef.id);
+      
+      setIsSubmitting(false);
+      setShowSuccess(true);
+      setFormData({ name: '', category: '', phone: '', message: '' });
+      
+      setTimeout(() => {
+        setShowSuccess(false);
+        setFloatingHearts([]);
+      }, 3000);
+    } catch (error: any) {
+      console.error('Error submitting form: ', error);
+      setIsSubmitting(false);
+      setFloatingHearts([]);
+      
+      // Show more detailed error message
+      let errorMessage = 'Failed to submit. Please try again.';
+      if (error?.code === 'permission-denied' || error?.message?.includes('permission')) {
+        errorMessage = 'Permission denied! Please contact the administrator to enable Firebase write access.';
+      } else if (error?.message) {
+        errorMessage = `Error: ${error.message}`;
+      }
+      
+      alert(errorMessage);
+    }
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Floating Hearts Animation */}
+      {floatingHearts.length > 0 && (
+        <div className="fixed inset-0 pointer-events-none z-50">
+          {floatingHearts.map((heart, index) => (
+            <div
+              key={heart.id}
+              className="absolute text-pink-500 text-4xl animate-float-up"
+              style={{
+                left: `${heart.x}%`,
+                bottom: '20%',
+                animationDelay: `${heart.delay}s`,
+                opacity: 0
+              }}
+            >
+              ❤️
+            </div>
+          ))}
+          {floatingHearts.length > 0 && (
+            <div className="absolute text-pink-500 text-4xl animate-float-up-left" style={{ left: '5%', bottom: '1%', animationDelay: '0s' }}>❤️</div>
+          )}
+          {floatingHearts.length > 0 && (
+            <div className="absolute text-pink-500 text-4xl animate-float-up-right" style={{ right: '5%', bottom: '19%', animationDelay: '0.1s' }}>❤️</div>
+          )}
+          {floatingHearts.length > 0 && (
+            <div className="absolute text-pink-500 text-4xl animate-float-up" style={{ left: '15%', bottom: '10%', animationDelay: '0.2s' }}>💖</div>
+          )}
+          {floatingHearts.length > 0 && (
+            <div className="absolute text-pink-500 text-4xl animate-float-up-right" style={{ right: '54%', bottom: '15%', animationDelay: '0.3s' }}>💖</div>
+          )}
+          {floatingHearts.length > 0 && (
+            <div className="absolute text-pink-500 text-4xl animate-float-up-right" style={{ right: '75%', bottom: '15%', animationDelay: '0.5s' }}>💖</div>
+          )}
+          {floatingHearts.length > 0 && (
+            <div className="absolute text-pink-500 text-4xl animate-float-up-right" style={{ right: '35%', bottom: '2%', animationDelay: '0.1s' }}>💖</div>
+          )}
+          {floatingHearts.length > 0 && (
+            <div className="absolute text-pink-500 text-4xl animate-float-up-right" style={{ right: '55%', bottom: '5%', animationDelay: '0.4s' }}>💖</div>
+          )}
+          {floatingHearts.length > 0 && (
+            <div className="absolute text-pink-500 text-4xl animate-float-up-left" style={{ left: '25%', bottom: '9%', animationDelay: '0.15s' }}>💕</div>
+          )}
+          {floatingHearts.length > 0 && (
+            <div className="absolute text-pink-500 text-4xl animate-float-up" style={{ left: '40%', bottom: '7%', animationDelay: '0.25s' }}>💗</div>
+          )}
+          {floatingHearts.length > 0 && (
+            <div className="absolute text-pink-500 text-4xl animate-float-up-right" style={{ right: '25%', bottom: '15%', animationDelay: '0.35s' }}>💕</div>
+          )}
+          {floatingHearts.length > 0 && (
+            <div className="absolute text-pink-500 text-4xl animate-float-up" style={{ left: '60%', bottom: '20%', animationDelay: '0.4s' }}>💖</div>
+          )}
+          {floatingHearts.length > 0 && (
+            <div className="absolute text-pink-500 text-4xl animate-float-up-left" style={{ left: '75%', bottom: '10%', animationDelay: '0.45s' }}>❤️</div>
+          )}
+          {floatingHearts.length > 0 && (
+            <div className="absolute text-pink-500 text-4xl animate-float-up-right" style={{ right: '35%', bottom: '0%', animationDelay: '0.5s' }}>💗</div>
+          )}
+          {floatingHearts.length > 0 && (
+            <div className="absolute text-pink-500 text-4xl animate-float-up" style={{ left: '75%', bottom: '0%', animationDelay: '0.2s' }}>💕</div>
+          )}
+          {floatingHearts.length > 0 && (
+            <div className="absolute text-pink-500 text-4xl animate-float-up" style={{ left: '95%', bottom: '0%', animationDelay: '0.2s' }}>💕</div>
+          )}
+          {floatingHearts.length > 0 && (
+            <div className="absolute text-pink-500 text-4xl animate-float-up" style={{ left: '25%', bottom: '0%', animationDelay: '0.7s' }}>💕</div>
+          )}
+          {floatingHearts.length > 0 && (
+            <div className="absolute text-pink-500 text-4xl animate-float-up" style={{ left: '65%', bottom: '0%', animationDelay: '0.9s' }}>💕</div>
+          )}
+          {floatingHearts.length > 0 && (
+            <div className="absolute text-pink-500 text-4xl animate-float-up" style={{ left: '45%', bottom: '0%', animationDelay: '0.8s' }}>💕</div>
+          )}
+        </div>
+      )}
+      
       <Navbar />
       
       <main className="py-16 px-4 bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50 dark:from-[#1f2937] dark:via-[#1f2937] dark:to-[#1f2937]">
@@ -96,6 +204,7 @@ export default function Contact() {
                     <option value="adult">Adult</option>
                     <option value="women">Women</option>
                     <option value="professional">Professional</option>
+                    <option value="special">Special</option>
                   </select>
                 </div>
                 
@@ -106,6 +215,13 @@ export default function Contact() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
+                    onKeyDown={(e) => {
+                      if (!/[\d\b]/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Delete' && e.key !== 'ArrowLeft' && e.key !== 'ArrowRight' && e.key !== 'Tab') {
+                        e.preventDefault();
+                      }
+                    }}
+                    inputMode="numeric"
+                    pattern="[0-9]*"
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
@@ -228,6 +344,73 @@ export default function Contact() {
       </main>
       
       <Footer />
+      
+      {/* Add custom styles for floating hearts animation */}
+      <style jsx>{`
+        @keyframes float-up {
+          0% {
+            opacity: 0;
+            transform: translateY(0) scale(0.5);
+          }
+          20% {
+            opacity: 1;
+            transform: translateY(-20px) scale(1);
+          }
+          80% {
+            opacity: 1;
+            transform: translateY(-300px) scale(1);
+          }
+          100% {
+            opacity: 0;
+            transform: translateY(-400px) scale(0.5);
+          }
+        }
+        @keyframes float-up-left {
+          0% {
+            opacity: 0;
+            transform: translate(0, 0) scale(0.5);
+          }
+          20% {
+            opacity: 1;
+            transform: translate(-20px, -20px) scale(1);
+          }
+          80% {
+            opacity: 1;
+            transform: translate(-50px, -300px) scale(1);
+          }
+          100% {
+            opacity: 0;
+            transform: translate(-80px, -400px) scale(0.5);
+          }
+        }
+        @keyframes float-up-right {
+          0% {
+            opacity: 0;
+            transform: translate(0, 0) scale(0.5);
+          }
+          20% {
+            opacity: 1;
+            transform: translate(20px, -20px) scale(1);
+          }
+          80% {
+            opacity: 1;
+            transform: translate(50px, -300px) scale(1);
+          }
+          100% {
+            opacity: 0;
+            transform: translate(80px, -400px) scale(0.5);
+          }
+        }
+        .animate-float-up {
+          animation: float-up 2s ease-out forwards;
+        }
+        .animate-float-up-left {
+          animation: float-up-left 2s ease-out forwards;
+        }
+        .animate-float-up-right {
+          animation: float-up-right 2s ease-out forwards;
+        }
+      `}</style>
     </div>
   );
 }

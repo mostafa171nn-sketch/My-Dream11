@@ -3,7 +3,12 @@
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 
-const images = [
+type CarouselItem = string | { src: string; name: string; title: string };
+
+const images: CarouselItem[] = [
+  { src: '/images/sasa.jpeg', name: 'Sasa', title: 'Swimming Champion' },
+  { src: '/images/yassin.jpg', name: 'Yassin', title: 'Top Athlete' },
+  { src: '/images/khaled.jpg', name: 'Khaled', title: 'Star Swimmer' },
   '/images/1.jpg',
   '/images/2.jpg',
   '/images/3.jpg',
@@ -15,6 +20,10 @@ const images = [
   '/images/10.jpg',
   '/images/team.jpeg',
 ];
+
+const getImageSrc = (item: CarouselItem): string => {
+  return typeof item === 'string' ? item : item.src;
+};
 
 
 const PhotoCarousel = () => {
@@ -77,7 +86,7 @@ const PhotoCarousel = () => {
                 }`}
               >
                 <Image
-                  src={src}
+                  src={getImageSrc(src)}
                   alt={`Gallery image ${index + 1}`}
                   fill
                   className="object-contain"
@@ -145,7 +154,7 @@ const PhotoCarousel = () => {
               }`}
             >
               <Image
-                src={src}
+                src={getImageSrc(src)}
                 alt={`Thumbnail ${index + 1}`}
                 fill
                 className="object-cover"
