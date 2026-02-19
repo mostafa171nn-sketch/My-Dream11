@@ -29,7 +29,7 @@ const Navbar = () => {
           <div className="absolute left-0 top-2" ref={darkModeRef}>
             <button 
               onClick={() => setIsDarkModeOpen(!isDarkModeOpen)}
-              className="flex items-center ml-2  px-2 py-2 text-xs font-medium rounded-md bg-white/10 hover:bg-white/20 transition-colors"
+              className="flex items-center ml-2 px-2 py-2 text-xs font-medium rounded-md bg-white/10 hover:bg-white/20 transition-colors"
             >
               <span>Dark Mode</span>
               <svg 
@@ -44,7 +44,7 @@ const Navbar = () => {
             
             {/* Dropdown Menu */}
             {isDarkModeOpen && (
-              <div className="absolute sasa top-full  rounded-lg shadow-lg  min-w-[140px] z-50">
+              <div className="absolute top-full rounded-lg shadow-lg min-w-[140px] z-50">
                 <div className="">
                   <ThemeToggle id="mobile-dropdown-toggle" />
                 </div>
@@ -59,27 +59,36 @@ const Navbar = () => {
               alt="My Dream Academy Logo" 
               className="w-16 h-16 rounded-full object-cover mb-1"
             />
-            <span className="text-lg font-bold">Dream Academy</span>
+            <span className="text-lg font-bold">My Dream Academy</span>
           </Link>
           
           {/* Links in a row */}
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4">
             <Link 
               href="/" 
-              className="hover:text-cyan-200 transition-colors duration-300 text-sm font-medium"
+              className="hover:text-cyan-200 transition-colors duration-300 text-sm font-medium flex items-center gap-1"
             >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
               Home
             </Link>
             <Link 
               href="/about" 
-              className="hover:text-cyan-200 transition-colors duration-300 text-sm font-medium"
+              className="hover:text-cyan-200 transition-colors duration-300 text-sm font-medium flex items-center gap-1"
             >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
               Details
             </Link>
             <Link 
               href="/contact" 
-              className="hover:text-cyan-200 transition-colors duration-300 text-sm font-medium"
+              className="hover:text-cyan-200 transition-colors duration-300 text-sm font-medium flex items-center gap-1"
             >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
               Contact-Us
             </Link>
           </div>
@@ -97,11 +106,11 @@ const Navbar = () => {
             <span className="text-2xl font-bold">My Dream Academy</span>
           </Link>
 
-          {/* Desktop Menu - Links with Dark Mode inline */}
-          <div className="flex items-center space-x-4">
+          {/* Desktop Menu */}
+          <div className="flex items-center space-x-1">
             <Link 
               href="/" 
-              className="hover:text-cyan-200 transition-colors duration-300 flex items-center space-x-1"
+              className="px-4 py-2 text-sm font-medium hover:text-cyan-200 transition-colors duration-300 flex items-center gap-1"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
@@ -110,7 +119,7 @@ const Navbar = () => {
             </Link>
             <Link 
               href="/about" 
-              className="hover:text-cyan-200 transition-colors duration-300 flex items-center space-x-1"
+              className="px-4 py-2 text-sm font-medium hover:text-cyan-200 transition-colors duration-300 flex items-center gap-1"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -119,7 +128,7 @@ const Navbar = () => {
             </Link>
             <Link 
               href="/contact" 
-              className="hover:text-cyan-200 transition-colors duration-300 flex items-center space-x-1"
+              className="px-4 py-2 text-sm font-medium hover:text-cyan-200 transition-colors duration-300 flex items-center gap-1"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -127,11 +136,10 @@ const Navbar = () => {
               <span>Contact-Us</span>
             </Link>
             
-            {/* Dark Mode Toggle - Desktop - Inline with links */}
-            <div className="scale-[0.75]">
+            {/* Dark Mode Toggle - Desktop */}
+            <div className="ml-4 scale-[0.75]">
               <ThemeToggle id="desktop-toggle" />
             </div>
-           
           </div>
         </div>
 
