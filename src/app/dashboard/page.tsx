@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { collection, getDocs, updateDoc, doc, deleteDoc, onSnapshot, query, orderBy } from 'firebase/firestore';
+import { collection, getDocs, updateDoc, doc, deleteDoc, onSnapshot, query, orderBy, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
 interface ContactMessage {
@@ -16,7 +16,7 @@ interface ContactMessage {
   status: 'pending' | 'waiting' | 'confirmed';
 }
 
-// Notification sound function using Web Audio API
+// notification sound function using Web Audio API
 const playNotificationSound = () => {
   try {
     const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
@@ -49,6 +49,14 @@ const playNotificationSound = () => {
   }
 };
 
+// Helper to convert Firestore timestamp to Date
+const getDateFromTimestamp = (timestamp: any): Date => {
+  if (!timestamp) return new Date(0);
+  if (timestamp.toDate) return timestamp.toDate();
+  if (timestamp.seconds) return new Date(timestamp.seconds * 1000);
+  return new Date(timestamp);
+};
+
 export default function Dashboard() {
   const [contactMessages, setContactMessages] = useState<ContactMessage[]>([]);
   const [waitingList, setWaitingList] = useState<ContactMessage[]>([]);
@@ -56,7 +64,10 @@ export default function Dashboard() {
   const [hasNewMessage, setHasNewMessage] = useState(false);
   const [isWaitingListOpen, setIsWaitingListOpen] = useState(true);
   const [globalSearch, setGlobalSearch] = useState('');
-  const lastSeenMessageIdRef = useRef<string | null>(null);
+  
+  // Track the latest message timestamp to detect truly NEW messages only
+  const lastSeenTimestampRef = useRef<number>(0);
+  const isFirstLoadRef = useRef(true);
 
   // Load contact messages from Firebase Firestore with real-time updates
   useEffect(() => {
@@ -72,24 +83,27 @@ export default function Dashboard() {
         } as ContactMessage);
       });
       
-      setContactMessages(messages);
-      
-      // Track the last message for notifications
-      if (messages.length > 0) {
-        const latestMessageId = messages[0].id;
-        if (latestMessageId !== lastSeenMessageIdRef.current) {
-          // New message arrived
-          if (lastSeenMessageIdRef.current !== null) {
-            playNotificationSound();
-            setHasNewMessage(true);
-            setTimeout(() => {
-              setHasNewMessage(false);
-            }, 10000);
-          }
-          lastSeenMessageIdRef.current = latestMessageId;
+      // Only notify for NEW messages (not deleted ones)
+      if (messages.length > 0 && !isFirstLoadRef.current) {
+        const latestMessage = messages[0];
+        const latestTimestamp = getDateFromTimestamp(latestMessage.date).getTime();
+        
+        // Only show notification if this is a genuinely new message
+        if (latestTimestamp > lastSeenTimestampRef.current) {
+          playNotificationSound();
+          setHasNewMessage(true);
+          setTimeout(() => {
+            setHasNewMessage(false);
+          }, 10000);
+          lastSeenTimestampRef.current = latestTimestamp;
         }
+      } else if (messages.length > 0 && isFirstLoadRef.current) {
+        // On first load, just set the timestamp without showing notification
+        lastSeenTimestampRef.current = getDateFromTimestamp(messages[0].date).getTime();
+        isFirstLoadRef.current = false;
       }
       
+      setContactMessages(messages);
       setLoading(false);
     }, (error) => {
       console.error('Error fetching messages:', error);
@@ -109,6 +123,7 @@ export default function Dashboard() {
     if (confirm('Are you sure you want to delete this message?')) {
       try {
         await deleteDoc(doc(db, 'contactMessages', id));
+        // Don't update lastSeenTimestampRef - we want to keep tracking for new messages
       } catch (error) {
         console.error('Error deleting document: ', error);
         alert('Failed to delete message. Please try again.');
