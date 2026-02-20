@@ -6,7 +6,6 @@ import Image from 'next/image';
 type CarouselItem = string | { src: string; name: string; title: string };
 
 const images: CarouselItem[] = [
-  { src: '/images/sasa.jpeg', name: 'Sasa', title: 'Swimming Champion' },
   { src: '/images/yassin.jpg', name: 'Yassin', title: 'Top Athlete' },
   { src: '/images/khaled.jpg', name: 'Khaled', title: 'Star Swimmer' },
   '/images/1.jpg',
