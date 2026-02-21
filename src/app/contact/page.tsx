@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 interface FloatingHeart {
   id: number;
@@ -22,6 +23,9 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [floatingHearts, setFloatingHearts] = useState<FloatingHeart[]>([]);
+  const { t, language } = useLanguage();
+  
+  const isArabic = language === 'ar';
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -34,7 +38,6 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Create floating hearts
     const hearts: FloatingHeart[] = [];
     for (let i = 0; i < 20; i++) {
       hearts.push({
@@ -46,7 +49,6 @@ export default function Contact() {
     setFloatingHearts(hearts);
     
     try {
-      // Add to Firestore
       const docRef = await addDoc(collection(db, 'contactMessages'), {
         name: formData.name,
         category: formData.category || '',
@@ -71,7 +73,6 @@ export default function Contact() {
       setIsSubmitting(false);
       setFloatingHearts([]);
       
-      // Show more detailed error message
       let errorMessage = 'Failed to submit. Please try again.';
       if (error?.code === 'permission-denied' || error?.message?.includes('permission')) {
         errorMessage = 'Permission denied! Please contact the administrator to enable Firebase write access.';
@@ -85,10 +86,9 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
-      {/* Floating Hearts Animation */}
       {floatingHearts.length > 0 && (
         <div className="fixed inset-0 pointer-events-none z-50">
-          {floatingHearts.map((heart, index) => (
+          {floatingHearts.map((heart) => (
             <div
               key={heart.id}
               className="absolute text-pink-500 text-4xl animate-float-up"
@@ -102,60 +102,6 @@ export default function Contact() {
               ❤️
             </div>
           ))}
-          {floatingHearts.length > 0 && (
-            <div className="absolute text-pink-500 text-4xl animate-float-up-left" style={{ left: '5%', bottom: '1%', animationDelay: '0s' }}>❤️</div>
-          )}
-          {floatingHearts.length > 0 && (
-            <div className="absolute text-pink-500 text-4xl animate-float-up-right" style={{ right: '5%', bottom: '19%', animationDelay: '0.1s' }}>❤️</div>
-          )}
-          {floatingHearts.length > 0 && (
-            <div className="absolute text-pink-500 text-4xl animate-float-up" style={{ left: '15%', bottom: '10%', animationDelay: '0.2s' }}>💖</div>
-          )}
-          {floatingHearts.length > 0 && (
-            <div className="absolute text-pink-500 text-4xl animate-float-up-right" style={{ right: '54%', bottom: '15%', animationDelay: '0.3s' }}>💖</div>
-          )}
-          {floatingHearts.length > 0 && (
-            <div className="absolute text-pink-500 text-4xl animate-float-up-right" style={{ right: '75%', bottom: '15%', animationDelay: '0.5s' }}>💖</div>
-          )}
-          {floatingHearts.length > 0 && (
-            <div className="absolute text-pink-500 text-4xl animate-float-up-right" style={{ right: '35%', bottom: '2%', animationDelay: '0.1s' }}>💖</div>
-          )}
-          {floatingHearts.length > 0 && (
-            <div className="absolute text-pink-500 text-4xl animate-float-up-right" style={{ right: '55%', bottom: '5%', animationDelay: '0.4s' }}>💖</div>
-          )}
-          {floatingHearts.length > 0 && (
-            <div className="absolute text-pink-500 text-4xl animate-float-up-left" style={{ left: '25%', bottom: '9%', animationDelay: '0.15s' }}>💕</div>
-          )}
-          {floatingHearts.length > 0 && (
-            <div className="absolute text-pink-500 text-4xl animate-float-up" style={{ left: '40%', bottom: '7%', animationDelay: '0.25s' }}>💗</div>
-          )}
-          {floatingHearts.length > 0 && (
-            <div className="absolute text-pink-500 text-4xl animate-float-up-right" style={{ right: '25%', bottom: '15%', animationDelay: '0.35s' }}>💕</div>
-          )}
-          {floatingHearts.length > 0 && (
-            <div className="absolute text-pink-500 text-4xl animate-float-up" style={{ left: '60%', bottom: '20%', animationDelay: '0.4s' }}>💖</div>
-          )}
-          {floatingHearts.length > 0 && (
-            <div className="absolute text-pink-500 text-4xl animate-float-up-left" style={{ left: '75%', bottom: '10%', animationDelay: '0.45s' }}>❤️</div>
-          )}
-          {floatingHearts.length > 0 && (
-            <div className="absolute text-pink-500 text-4xl animate-float-up-right" style={{ right: '35%', bottom: '0%', animationDelay: '0.5s' }}>💗</div>
-          )}
-          {floatingHearts.length > 0 && (
-            <div className="absolute text-pink-500 text-4xl animate-float-up" style={{ left: '75%', bottom: '0%', animationDelay: '0.2s' }}>💕</div>
-          )}
-          {floatingHearts.length > 0 && (
-            <div className="absolute text-pink-500 text-4xl animate-float-up" style={{ left: '95%', bottom: '0%', animationDelay: '0.2s' }}>💕</div>
-          )}
-          {floatingHearts.length > 0 && (
-            <div className="absolute text-pink-500 text-4xl animate-float-up" style={{ left: '25%', bottom: '0%', animationDelay: '0.7s' }}>💕</div>
-          )}
-          {floatingHearts.length > 0 && (
-            <div className="absolute text-pink-500 text-4xl animate-float-up" style={{ left: '65%', bottom: '0%', animationDelay: '0.9s' }}>💕</div>
-          )}
-          {floatingHearts.length > 0 && (
-            <div className="absolute text-pink-500 text-4xl animate-float-up" style={{ left: '45%', bottom: '0%', animationDelay: '0.8s' }}>💕</div>
-          )}
         </div>
       )}
       
@@ -163,97 +109,95 @@ export default function Contact() {
       
       <main className="py-16 px-4 bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50 dark:from-[#1f2937] dark:via-[#1f2937] dark:to-[#1f2937]">
         <div className="container mx-auto max-w-4xl">
-          <h1 className="text-4xl font-bold text-center mb-8 gradient-text">Contact Us</h1>
+          <h1 className="text-4xl font-bold text-center mb-8 gradient-text">{t('contactUsTitle')}</h1>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Contact Form */}
-            <div className="rotating-gradient-border ">
+            <div className="rotating-gradient-border">
               <div className="bg-white dark:bg-[#111827] rounded-lg p-8">
-              <h2 className="text-2xl font-semibold mb-6 text-blue-600 dark:text-cyan-400">Send us a Message</h2>
-              
-              {showSuccess && (
-                <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
-                  Thank you for your message! We'll get back to you soon.
-                </div>
-              )}
-              
-              <form onSubmit={handleSubmit} className="  space-y-4">
-                <div>
-                  <label className="block text-gray-700 dark:text-gray-300 font-medium mb-2">Name</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
+                <h2 className="text-2xl font-semibold mb-6 text-blue-600 dark:text-cyan-400">{t('sendUsMessage')}</h2>
                 
-                <div>
-                  <label className="block text-gray-700 dark:text-gray-300 font-medium mb-2">Category</label>
-                  <select
-                    name="category"
-                    value={formData.category}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                {showSuccess && (
+                  <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                    {t('successMessage')}
+                  </div>
+                )}
+                
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div>
+                    <label className="block text-gray-700 dark:text-gray-300 font-medium mb-2">{t('yourName')}</label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-gray-700 dark:text-gray-300 font-medium mb-2">{t('category')}</label>
+                    <select
+                      name="category"
+                      value={formData.category}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                      <option value="">{t('selectCategory')}</option>
+                      <option value="baby">{t('baby')}</option>
+                      <option value="adult">{t('adult')}</option>
+                      <option value="women">{t('women')}</option>
+                      <option value="professional">{t('professional')}</option>
+                      <option value="special">{t('special')}</option>
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-gray-700 dark:text-gray-300 font-medium mb-2">{t('phone')}</label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      onKeyDown={(e) => {
+                        if (!/[\d\b]/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Delete' && e.key !== 'ArrowLeft' && e.key !== 'ArrowRight' && e.key !== 'Tab') {
+                          e.preventDefault();
+                        }
+                      }}
+                      inputMode="numeric"
+                      pattern="[0-9]*"
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-gray-700 dark:text-gray-300 font-medium mb-2">{t('message')}</label>
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
+                      rows={4}
+                      placeholder={isArabic ? 'برجاء كتابة المعاد المناسب' : 'Please write your preferred time'}
+                      className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                  
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 disabled:opacity-50"
                   >
-                    <option value="">Select Category</option>
-                    <option value="baby">Baby</option>
-                    <option value="adult">Adult</option>
-                    <option value="women">Women</option>
-                    <option value="professional">Professional</option>
-                    <option value="special">Special</option>
-                  </select>
-                </div>
-                
-                <div>
-                  <label className="block text-gray-700 dark:text-gray-300 font-medium mb-2">Phone</label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    onKeyDown={(e) => {
-                      if (!/[\d\b]/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Delete' && e.key !== 'ArrowLeft' && e.key !== 'ArrowRight' && e.key !== 'Tab') {
-                        e.preventDefault();
-                      }
-                    }}
-                    inputMode="numeric"
-                    pattern="[0-9]*"
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-                
-                <div>
-                  <label className="block text-gray-700 dark:text-gray-300 font-medium mb-2">Message</label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={4}
-                    placeholder="برجاء كتابه المعاد المناسب"
-                    className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-                
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 disabled:opacity-50"
-                >
-                  {isSubmitting ? 'Sending...' : 'Send Message'}
-                </button>
-              </form>
-            </div>
+                    {isSubmitting ? t('sending') : t('sendMessage')}
+                  </button>
+                </form>
+              </div>
             </div>
             
-            {/* Contact Information */}
             <div className="space-y-6">
               <div className="bg-white dark:bg-[#111827] rounded-lg shadow-lg p-8">
-                <h2 className="text-2xl font-semibold mb-6 text-blue-600 dark:text-cyan-400">Get in Touch</h2>
+                <h2 className="text-2xl font-semibold mb-6 text-blue-600 dark:text-cyan-400">{t('getInTouch')}</h2>
                 
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3">
@@ -263,7 +207,7 @@ export default function Contact() {
                       </svg>
                     </div>
                     <div>
-                      <div className="font-medium dark:text-white">Phone</div>
+                      <div className="font-medium dark:text-white">{t('phone')}</div>
                       <div className="text-gray-600 dark:text-gray-300">01115636975</div>
                     </div>
                   </div>
@@ -288,10 +232,10 @@ export default function Contact() {
                       </svg>
                     </div>
                     <div>
-                      <div className="font-medium dark:text-white">Branches</div>
+                      <div className="font-medium dark:text-white">{t('branches')}</div>
                       <div className="text-gray-600 dark:text-gray-300">
-                        مدرسه الحياه: القاهره الجديده<br />
-                        عالم الرياضة: الوفاء و الامل
+                        {t('branch1')}<br />
+                        {t('branch2')}
                       </div>
                     </div>
                   </div>
@@ -299,7 +243,7 @@ export default function Contact() {
               </div>
               
               <div className="bg-white dark:bg-[#111827] rounded-lg shadow-lg p-8">
-                <h2 className="text-2xl font-semibold mb-6 text-blue-600 dark:text-cyan-400">Follow Us</h2>
+                <h2 className="text-2xl font-semibold mb-6 text-blue-600 dark:text-cyan-400">{t('followUs')}</h2>
                 
                 <div className="flex space-x-4">
                   <a 
@@ -345,70 +289,15 @@ export default function Contact() {
       
       <Footer />
       
-      {/* Add custom styles for floating hearts animation */}
       <style jsx>{`
         @keyframes float-up {
-          0% {
-            opacity: 0;
-            transform: translateY(0) scale(0.5);
-          }
-          20% {
-            opacity: 1;
-            transform: translateY(-20px) scale(1);
-          }
-          80% {
-            opacity: 1;
-            transform: translateY(-300px) scale(1);
-          }
-          100% {
-            opacity: 0;
-            transform: translateY(-400px) scale(0.5);
-          }
-        }
-        @keyframes float-up-left {
-          0% {
-            opacity: 0;
-            transform: translate(0, 0) scale(0.5);
-          }
-          20% {
-            opacity: 1;
-            transform: translate(-20px, -20px) scale(1);
-          }
-          80% {
-            opacity: 1;
-            transform: translate(-50px, -300px) scale(1);
-          }
-          100% {
-            opacity: 0;
-            transform: translate(-80px, -400px) scale(0.5);
-          }
-        }
-        @keyframes float-up-right {
-          0% {
-            opacity: 0;
-            transform: translate(0, 0) scale(0.5);
-          }
-          20% {
-            opacity: 1;
-            transform: translate(20px, -20px) scale(1);
-          }
-          80% {
-            opacity: 1;
-            transform: translate(50px, -300px) scale(1);
-          }
-          100% {
-            opacity: 0;
-            transform: translate(80px, -400px) scale(0.5);
-          }
+          0% { opacity: 0; transform: translateY(0) scale(0.5); }
+          20% { opacity: 1; transform: translateY(-20px) scale(1); }
+          80% { opacity: 1; transform: translateY(-300px) scale(1); }
+          100% { opacity: 0; transform: translateY(-400px) scale(0.5); }
         }
         .animate-float-up {
           animation: float-up 2s ease-out forwards;
-        }
-        .animate-float-up-left {
-          animation: float-up-left 2s ease-out forwards;
-        }
-        .animate-float-up-right {
-          animation: float-up-right 2s ease-out forwards;
         }
       `}</style>
     </div>

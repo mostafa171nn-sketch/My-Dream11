@@ -1,6 +1,7 @@
 'use client';
 
 import GridCard from './GridCard';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 const gridItems = [
   {
@@ -73,6 +74,8 @@ const gridItems = [
 
 
 const GridSection = () => {
+  const { t } = useLanguage();
+  
   return (
     <section className="relative py-24 bg-white dark:bg-[#1f2937] overflow-hidden">
 
@@ -85,11 +88,11 @@ const GridSection = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-purple-600">Programs</span>
+            {t('ourPrograms')}
           </h2>
           <p className="text-gray-600 dark:text-gray-300 text-lg max-w-2xl mx-auto">
 
-            Discover our comprehensive training programs designed to help you achieve your dreams
+            {t('programsDescription')}
           </p>
         </div>
 

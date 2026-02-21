@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 type CarouselItem = string | { src: string; name: string; title: string };
 
@@ -28,6 +29,7 @@ const getImageSrc = (item: CarouselItem): string => {
 const PhotoCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const { t, isRTL } = useLanguage();
 
   const nextSlide = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % images.length);
@@ -51,6 +53,16 @@ const PhotoCarousel = () => {
     return () => clearInterval(interval);
   }, [isAutoPlaying, nextSlide]);
 
+  // RTL-aware classes
+  const textAlignClass = isRTL ? 'text-right' : 'text-left';
+  const dividerClass = isRTL ? 'ml-auto' : 'mx-auto';
+  const scrollPaddingClass = isRTL ? 'pl-2' : 'pr-2';
+  
+  // RTL arrow positions
+  const prevArrowPosition = isRTL ? 'right-5' : 'left-5';
+  const nextArrowPosition = isRTL ? 'left-5' : 'right-5';
+  const arrowRotation = isRTL ? 'rotate-180' : '';
+
   return (
     <section className="py-16 bg-gradient-to-b from-gray-100 to-gray-200 dark:from-[#0f172a] dark:to-[#0f172a]">
 
@@ -58,13 +70,12 @@ const PhotoCarousel = () => {
         {/* Section Header */}
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="gradient-text">Our Gallery</span>
+            <span className="gradient-text">{t('ourGallery')}</span>
           </h2>
           <p className="text-gray-600 dark:text-gray-300 text-lg max-w-2xl mx-auto">
-
-            Explore moments captured throughout our journey of excellence
+            {t('galleryDescription')}
           </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-cyan-500 mx-auto mt-4 rounded-full"></div>
+          <div className={`w-24 h-1 bg-gradient-to-r from-blue-600 to-cyan-500 ${dividerClass} mt-4 rounded-full`}></div>
         </div>
 
         {/* Carousel Container */}
@@ -99,23 +110,23 @@ const PhotoCarousel = () => {
             ))}
           </div>
 
-          {/* Navigation Arrows */}
+          {/* Navigation Arrows - RTL aware positions */}
           <button
             onClick={prevSlide}
-            className="absolute  left-5 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 group"
-            aria-label="Previous slide"
+            className={`absolute ${prevArrowPosition} top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 group`}
+            aria-label={isRTL ? 'Next slide' : 'Previous slide'}
           >
-            <svg className="w-4 h-4 group-hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className={`w-4 h-4 group-hover:text-blue-600 ${arrowRotation}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
           
           <button
             onClick={nextSlide}
-            className="absolute right-5 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 group"
-            aria-label="Next slide"
+            className={`absolute ${nextArrowPosition} top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 group`}
+            aria-label={isRTL ? 'Previous slide' : 'Next slide'}
           >
-            <svg className="w-4 h-4 group-hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className={`w-4 h-4 group-hover:text-blue-600 ${arrowRotation}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
@@ -165,48 +176,35 @@ const PhotoCarousel = () => {
         {/* Champions & Benefits Section - Scrollable */}
         <div className="max-w-4xl mx-auto mt-12 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
           <h3 className="text-2xl md:text-3xl font-bold text-center mb-6 text-gray-900 dark:text-white">
-            🏆 Our Champions & Benefits of Swimming
+            🏆 {t('championsBenefits')}
           </h3>
           
-          <div className="max-h-64 overflow-y-auto pr-2 space-y-4 text-gray-700 dark:text-gray-300">
+          <div className={`max-h-64 overflow-y-auto ${scrollPaddingClass} space-y-4 text-gray-700 dark:text-gray-300`}>
             <div className="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-xl">
-              <h4 className="font-bold text-lg mb-2 text-blue-700 dark:text-blue-400">🏅 Champion Achievements</h4>
+              <h4 className="font-bold text-lg mb-2 text-blue-700 dark:text-blue-400">🏅 {t('championAchievements')}</h4>
               <p className="text-sm leading-relaxed">
-                Our academy has produced numerous champions who have excelled at national and international levels. 
-                From winning gold medals at regional championships to representing Egypt in international competitions, 
-                our swimmers have proven that dedication and proper training lead to extraordinary results. 
-                Champions like Joumana Hamdy, Yousif Shref, and Mostafa Sheta started their journey right here 
-                and have become role models for the next generation.
+                {t('championAchievementsText')}
               </p>
             </div>
 
             <div className="bg-cyan-50 dark:bg-cyan-900/30 p-4 rounded-xl">
-              <h4 className="font-bold text-lg mb-2 text-cyan-700 dark:text-cyan-400">💪 Physical Benefits</h4>
+              <h4 className="font-bold text-lg mb-2 text-cyan-700 dark:text-cyan-400">💪 {t('physicalBenefits')}</h4>
               <p className="text-sm leading-relaxed">
-                Swimming is one of the most complete physical exercises. It builds cardiovascular endurance, 
-                strengthens muscles throughout the entire body, improves flexibility, and enhances coordination. 
-                Unlike many sports, swimming is low-impact, making it perfect for all ages while still providing 
-                an excellent full-body workout that burns calories and builds lean muscle.
+                {t('physicalBenefitsText')}
               </p>
             </div>
 
             <div className="bg-green-50 dark:bg-green-900/30 p-4 rounded-xl">
-              <h4 className="font-bold text-lg mb-2 text-green-700 dark:text-green-400">🧠 Mental & Health Benefits</h4>
+              <h4 className="font-bold text-lg mb-2 text-green-700 dark:text-green-400">🧠 {t('mentalHealthBenefits')}</h4>
               <p className="text-sm leading-relaxed">
-                Regular swimming reduces stress, anxiety, and depression. The rhythmic nature of swimming 
-                has a meditative effect on the mind. It also improves sleep quality, boosts immune system 
-                function, and promotes better lung capacity. Swimming from a young age builds discipline, 
-                time management skills, and self-confidence that extends far beyond the pool.
+                {t('mentalHealthBenefitsText')}
               </p>
             </div>
 
             <div className="bg-purple-50 dark:bg-purple-900/30 p-4 rounded-xl">
-              <h4 className="font-bold text-lg mb-2 text-purple-700 dark:text-purple-400">🌊 Life Skills</h4>
+              <h4 className="font-bold text-lg mb-2 text-purple-700 dark:text-purple-400">🌊 {t('lifeSkills')}</h4>
               <p className="text-sm leading-relaxed">
-                Swimming is an essential life skill that promotes water safety and can save lives. 
-                It teaches goal-setting, perseverance through challenges, and the value of consistent practice. 
-                Team swimming fosters social skills, sportsmanship, and lifelong friendships. These skills 
-                translate to success in academics, careers, and personal relationships.
+                {t('lifeSkillsText')}
               </p>
             </div>
           </div>

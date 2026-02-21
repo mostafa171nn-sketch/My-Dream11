@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "@/lib/i18n/LanguageContext";
+import ClientDirection from "@/components/ClientDirection";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -45,7 +47,11 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        {children}
+        <LanguageProvider>
+          <ClientDirection>
+            {children}
+          </ClientDirection>
+        </LanguageProvider>
       </body>
     </html>
   );

@@ -1,126 +1,71 @@
 'use client';
 
+import { useLanguage } from '@/lib/i18n/LanguageContext';
+
 const Marquee = () => {
+  const { t } = useLanguage();
+  
+  // Individual items without extra spacing
+  const items = [
+    `🏆 ${t('bestTrainingAcademy')} 🏆`,
+    `💪 ${t('joinOurProgramsToday')} 💪`,
+    `🌟 ${t('achieveYourGoals')} 🌟`,
+    `🎯 ${t('expertCoaching')} 🎯`,
+    `🚀 ${t('startYourJourney')} 🚀`,
+    `✨ ${t('transformYourDreams')} ✨`,
+  ];
+  
+  const desktopItems = items.join('');
+  const mobileItems = items.join('');
+  
   return (
-    <div className="overflow-hidden bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-gray-800 dark:to-gray-900 py-2 md:py-4">
-      {/* Desktop - Show all items */}
-      <div 
-        className="marquee-content hidden md:flex whitespace-nowrap"
-        style={{
-          animation: 'marquee 20s linear infinite',
-        }}
-      >
-        <span className="mx-4 text-white text-xl font-bold">
-          🏆 Best Training Academy 🏆
-        </span>
-        <span className="mx-4 text-white text-xl font-bold">
-          💪 Join Our Programs Today 💪
-        </span>
-        <span className="mx-4 text-white text-xl font-bold">
-          🌟 Achieve Your Goals 🌟
-        </span>
-        <span className="mx-4 text-white text-xl font-bold">
-          🎯 Expert Coaching 🎯
-        </span>
-        <span className="mx-4 text-white text-xl font-bold">
-          🚀 Start Your Journey 🚀
-        </span>
-        <span className="mx-4 text-white text-xl font-bold">
-          ✨ Transform Your Dreams Into Reality ✨
-        </span>
-        {/* Duplicate for seamless loop */}
-        <span className="mx-4 text-white text-xl font-bold">
-          🏆 Best Training Academy 🏆
-        </span>
-        <span className="mx-4 text-white text-xl font-bold">
-          💪 Join Our Programs Today 💪
-        </span>
-        <span className="mx-4 text-white text-xl font-bold">
-          🌟 Achieve Your Goals 🌟
-        </span>
-        <span className="mx-4 text-white text-xl font-bold">
-          🎯 Expert Coaching 🎯
-        </span>
-        <span className="mx-4 text-white text-xl font-bold">
-          🚀 Start Your Journey 🚀
-        </span>
-        <span className="mx-4 text-white text-xl font-bold">
-          ✨ Transform Your Dreams Into Reality ✨
-        </span>
+    <div 
+      className="overflow-hidden  bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-gray-800 dark:to-gray-900 py-2 md:py-4"
+      dir="ltr"
+      style={{ direction: 'ltr', textAlign: 'left' }}
+    >
+      {/* Desktop - Seamless continuous scrolling */}
+      <div className="hidden md:block overflow-hidden">
+        <div 
+          className="flex whitespace-nowrap"
+          style={{
+            width: 'fit-content',
+            animation: 'marquee-desktop 30s linear infinite',
+            direction: 'ltr',
+            textAlign: 'left',
+          }}
+        >
+          <span className="text-white text-xl font-bold" style={{ direction: 'ltr' }}>{desktopItems}</span>
+          <span className="text-white text-xl font-bold" style={{ direction: 'ltr' }}>{desktopItems}</span>
+        </div>
       </div>
 
-      {/* Mobile - Show 10 items */}
-      <div 
-        className="marquee-content md:hidden flex whitespace-nowrap"
-        style={{
-          animation: 'marquee 6s linear infinite',
-        }}
-      >
-        <span className="mx-2 text-white text-sm font-bold">
-          🏆 Best Academy
-        </span>
-        <span className="mx-2 text-white text-sm font-bold">
-          💪 Join Today
-        </span>
-        <span className="mx-2 text-white text-sm font-bold">
-          🌟 Achieve Goals
-        </span>
-        <span className="mx-2 text-white text-sm font-bold">
-          🎯 Expert Coaching
-        </span>
-        <span className="mx-2 text-white text-sm font-bold">
-          🚀 Start Journey
-        </span>
-        <span className="mx-2 text-white text-sm font-bold">
-          ✨ Transform Dreams
-        </span>
-        <span className="mx-2 text-white text-sm font-bold">
-          📚 Learn More
-        </span>
-        <span className="mx-2 text-white text-sm font-bold">
-          🎓 Get Certified
-        </span>
-        <span className="mx-2 text-white text-sm font-bold">
-          ⭐ Success Stories
-        </span>
-        <span className="mx-2 text-white text-sm font-bold">
-          🏅 Top Rated
-        </span>
-        {/* Duplicate for seamless loop */}
-        <span className="mx-2 text-white text-sm font-bold">
-          🏆 Best Academy
-        </span>
-        <span className="mx-2 text-white text-sm font-bold">
-          💪 Join Today
-        </span>
-        <span className="mx-2 text-white text-sm font-bold">
-          🌟 Achieve Goals
-        </span>
-        <span className="mx-2 text-white text-sm font-bold">
-          🎯 Expert Coaching
-        </span>
-        <span className="mx-2 text-white text-sm font-bold">
-          🚀 Start Journey
-        </span>
-        <span className="mx-2 text-white text-sm font-bold">
-          ✨ Transform Dreams
-        </span>
-        <span className="mx-2 text-white text-sm font-bold">
-          📚 Learn More
-        </span>
-        <span className="mx-2 text-white text-sm font-bold">
-          🎓 Get Certified
-        </span>
-        <span className="mx-2 text-white text-sm font-bold">
-          ⭐ Success Stories
-        </span>
-        <span className="mx-2 text-white text-sm font-bold">
-          🏅 Top Rated
-        </span>
+      {/* Mobile - Seamless continuous scrolling */}
+      <div className="md:hidden overflow-hidden">
+        <div 
+          className="flex whitespace-nowrap"
+          style={{
+            width: 'fit-content',
+            animation: 'marquee-mobile 20s linear infinite',
+            direction: 'ltr',
+            textAlign: 'left',
+          }}
+        >
+          <span className="text-white text-sm font-bold" style={{ direction: 'ltr' }}>{mobileItems}</span>
+          <span className="text-white text-sm font-bold" style={{ direction: 'ltr' }}>{mobileItems}</span>
+        </div>
       </div>
 
       <style jsx>{`
-        @keyframes marquee {
+        @keyframes marquee-desktop {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        @keyframes marquee-mobile {
           0% {
             transform: translateX(0);
           }

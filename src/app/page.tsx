@@ -8,11 +8,13 @@ import Hero from '@/components/Hero';
 import GridSection from '@/components/GridSection';
 import PhotoCarousel from '@/components/PhotoCarousel';
 import Loading from '@/components/Loading';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
 // import Testimonials from '@/components/Testimonials';
 import Footer from '@/components/Footer';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
+  const { t } = useLanguage();
 
   useEffect(() => {
     // Simulate loading time
@@ -24,7 +26,7 @@ export default function Home() {
   }, []);
 
   if (isLoading) {
-    return <Loading text="Loading My Dream Academy..." />;
+    return <Loading text={t('loadingText')} />;
   }
 
   return (
@@ -41,10 +43,10 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              <span className="bg-gradient-to-r from-cyan-600 to-purple-600 bg-clip-text text-transparent">Making Friends</span>
+              <span className="bg-gradient-to-r from-cyan-600 to-purple-600 bg-clip-text text-transparent">{t('makingFriends')}</span>
             </h2>
             <p className="text-gray-600 dark:text-gray-300 text-lg max-w-3xl mx-auto">
-              Sports and swimming bring people together, creating lasting friendships and building a supportive community where everyone thrives together.
+              {t('makingFriendsDescription')}
             </p>
           </div>
 
@@ -67,16 +69,14 @@ export default function Home() {
 
           <div className="mt-8 text-center max-w-3xl mx-auto">
             <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
-              At My Dream Academy, we believe that sports are more than just physical activity—they're a way to build meaningful connections.
-              Our swimmers train together, support each other, and celebrate victories as one big family.
-              The bonds formed in the pool last a lifetime, creating friendships that go beyond the water.
+              {t('makingFriendsText')}
             </p>
 
             <Link
               href="/about"
               className=" mt-6 inline-block bg-gradient-to-r from-blue-600 to-cyan-400 hover:from-blue-700 hover:to-cyan-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transform hover:scale-105 transition-all duration-300"
             >
-              للتفاصيل اضغط هنا
+              {t('forDetailsClickHere')}
             </Link>
 
           </div>
@@ -88,10 +88,10 @@ export default function Home() {
       <section className="py-16 bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-gray-900 dark:to-gray-800">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-3 text-white">
-            Start Your Journey Today
+            {t('startYourJourneyToday')}
           </h2>
           <p className="text-white/80 text-lg max-w-2xl mx-auto">
-            Join My Dream Academy and transform your swimming skills with professional coaching
+            {t('startYourJourneyDescription')}
           </p>
 
         </div>
