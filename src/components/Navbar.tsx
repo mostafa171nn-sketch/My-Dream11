@@ -26,7 +26,7 @@ const Navbar = () => {
                   checkbox.click();
                 }
               }}
-              className="flex items-center px-2 py-2 text-xs font-medium rounded-md bg-white/10 hover:bg-white/20 transition-colors"
+              className="flex items-center  px-2 py-2 text-xs font-medium rounded-md bg-white/10 hover:bg-white/20 transition-colors"
             >
               <span>{t('darkMode')}</span>
             </button>
@@ -37,20 +37,22 @@ const Navbar = () => {
           </div>
 
           {/* Language Switcher - Right in English, Left in Arabic */}
-          <div className={`absolute top-2 ${isRTL ? 'left-2' : 'right-2'}`}>
-            <div className="scale-75">
+          <div className={`absolute top-2  ${isRTL ? 'left-0' : 'right-0'}`}>
+            <div className="scale-100">
               <LanguageSwitcher />
             </div>
           </div>
           
           {/* Logo and Title Centered */}
-          <Link href="/" className="flex flex-col items-center mb-2">
+          <Link href="/" className="flex flex-col items-center mb-2 group">
             <img 
               src="/logoo.jpeg" 
               alt="My Dream Academy Logo" 
-              className="w-16 h-16 rounded-full object-cover mb-1"
+              className="w-16 h-16 rounded-full object-cover mb-1 ring-2 ring-white/30 group-hover:ring-white/60 transition-all duration-300"
             />
-            <span className="text-lg font-bold">My Dream Academy</span>
+            <span className="text-lg font-bold">
+              My <span className="dream drop-shadow-md">Dream</span> Academy
+            </span>
           </Link>
           
           {/* Links in a row */}
@@ -89,13 +91,15 @@ const Navbar = () => {
         {/* Desktop Nav - Logo and Menu in one row */}
         <div className="hidden md:flex justify-between items-center py-4">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3">
+          <Link href="/" className="flex items-center space-x-3 group">
             <img 
               src="/logoo.jpeg" 
               alt="My Dream Academy Logo" 
-              className="w-14 h-14 rounded-full object-cover"
+              className="w-14 h-14 rounded-full object-cover ring-2 ring-white/30 group-hover:ring-white/60 transition-all duration-300"
             />
-            <span className="text-2xl font-bold">My Dream Academy</span>
+            <span className="text-2xl font-bold">
+            My<span className="dream"> Dream</span> Academy
+            </span>
           </Link>
 
           {/* Desktop Menu */}
@@ -146,13 +150,15 @@ const Navbar = () => {
           <div className="md:hidden py-4 border-t border-blue-400">
             {/* Logo and Title in Center */}
             <div className="flex flex-col items-center justify-center mb-4">
-              <Link href="/" className="flex flex-col items-center" onClick={() => setIsMenuOpen(false)}>
+              <Link href="/" className="flex flex-col items-center group" onClick={() => setIsMenuOpen(false)}>
                 <img 
                   src="/logoo.jpeg" 
                   alt="My Dream Academy Logo" 
-                  className="w-16 h-16 rounded-full object-cover mb-2"
+                  className="w-16 h-16 rounded-full object-cover mb-2 ring-2 ring-white/30 group-hover:ring-white/60 transition-all duration-300"
                 />
-                <span className="text-xl font-bold">Dream Academy</span>
+                <span className="text-xl font-bold">
+                  My <span className="px-2 py-1.5 rounded-lg bg-gradient-to-r from-blue-600/60 via-cyan-400/60 to-blue-600/60 backdrop-blur-md border border-white/40 shadow-lg">Dream</span> Academy
+                </span>
               </Link>
             </div>
             
