@@ -4,55 +4,64 @@ import { useLanguage } from '@/lib/i18n/LanguageContext';
 
 const Marquee = () => {
   const { t } = useLanguage();
-  
-  // Individual items without extra spacing
+
   const items = [
-    `🏆 ${t('bestTrainingAcademy')} 🏆`,
-    `💪 ${t('joinOurProgramsToday')} 💪`,
-    `🌟 ${t('achieveYourGoals')} 🌟`,
-    `🎯 ${t('expertCoaching')} 🎯`,
-    `🚀 ${t('startYourJourney')} 🚀`,
-    `✨ ${t('transformYourDreams')} ✨`,
+    { text: '🏆 Train hard ' },
+    { text: t('Swim fast •') },
+    { text: t('Break your limits •') },
+    { text: t('Your championship journey starts here 🏊‍♂️') },
   ];
-  
-  const desktopItems = items.join('');
-  const mobileItems = items.join('');
-  
+
+  const desktopItems = items.map(item => item.text).join(' ');
+  const mobileItems = items.map(item => item.text).join(' • ');
+
   return (
     <div 
-      className="overflow-hidden  bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-gray-800 dark:to-gray-900 py-2 md:py-4"
+      className="hidden md:block relative overflow-hidden bg-gradient-to-r from-blue-700 via-cyan-500 to-blue-700 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-1 md:py-5"
       dir="ltr"
-      style={{ direction: 'ltr', textAlign: 'left' }}
     >
-      {/* Desktop - Seamless continuous scrolling */}
+      {/* Left gradient fade - matching background */}
+      <div 
+        className="absolute left-0 top-0 bottom-0 w-10 z-1"
+        style={{
+        }}
+      />
+      
+      {/* Right gradient fade - matching background */}
+      <div 
+        className="absolute right-0 top-0 bottom-0 w-10 z-1"
+        style={{
+        }}
+      />
+
       <div className="hidden md:block overflow-hidden">
         <div 
-          className="flex whitespace-nowrap"
+          className="flex whitespace-nowrap items-center"
           style={{
             width: 'fit-content',
-            animation: 'marquee-desktop 30s linear infinite',
-            direction: 'ltr',
-            textAlign: 'left',
+            animation: 'marquee-desktop 15s linear infinite',
           }}
         >
-          <span className="text-white text-xl font-bold" style={{ direction: 'ltr' }}>{desktopItems}</span>
-          <span className="text-white text-xl font-bold" style={{ direction: 'ltr' }}>{desktopItems}</span>
+          <span className="text-white text-lg md:text-xl font-semibold tracking-wide px-6" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>{desktopItems}</span>
+          <span className="text-white text-lg md:text-xl font-semibold tracking-wide px-6" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>{desktopItems}</span>
+          <span className="text-white text-lg md:text-xl font-semibold tracking-wide px-6" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>{desktopItems}</span>
+          <span className="text-white text-lg md:text-xl font-semibold tracking-wide px-6" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>{desktopItems}</span>
+          <span className="text-white text-lg md:text-xl font-semibold tracking-wide px-6" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>{desktopItems}</span>
+          <span className="text-white text-lg md:text-xl font-semibold tracking-wide px-6" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>{desktopItems}</span>
         </div>
       </div>
 
-      {/* Mobile - Seamless continuous scrolling */}
-      <div className="md:hidden overflow-hidden">
+      {/* Mobile - Hidden completely */}
+      <div className="hidden overflow-hidden">
         <div 
           className="flex whitespace-nowrap"
           style={{
             width: 'fit-content',
             animation: 'marquee-mobile 20s linear infinite',
-            direction: 'ltr',
-            textAlign: 'left',
           }}
         >
-          <span className="text-white text-sm font-bold" style={{ direction: 'ltr' }}>{mobileItems}</span>
-          <span className="text-white text-sm font-bold" style={{ direction: 'ltr' }}>{mobileItems}</span>
+          <span className="text-white text-sm font-medium px-2">{mobileItems}</span>
+          <span className="text-white text-sm font-medium px-2">{mobileItems}</span>
         </div>
       </div>
 
@@ -62,7 +71,7 @@ const Marquee = () => {
             transform: translateX(0);
           }
           100% {
-            transform: translateX(-50%);
+            transform: translateX(-16.66%);
           }
         }
         @keyframes marquee-mobile {

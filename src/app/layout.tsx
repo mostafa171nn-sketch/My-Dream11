@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 import ClientDirection from "@/components/ClientDirection";
 
 const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({ 
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  style: ["normal", "italic"],
+});
 
 export const metadata: Metadata = {
   title: "MY Dream Academy - Achieve Your Dreams with Expert Coaching",
@@ -17,9 +22,14 @@ export const metadata: Metadata = {
     type: "website",
   },
   icons: {
-    icon: "/logoo.jpeg",
+    icon: [
+      { url: "/logoo.jpeg", type: "image/jpeg", sizes: "32x32" },
+      { url: "/logoo.jpeg", type: "image/jpeg", sizes: "16x16" },
+    ],
     shortcut: "/logoo.jpeg",
-    apple: "/logoo.jpeg",
+    apple: [
+      { url: "/logoo.jpeg", type: "image/jpeg" },
+    ],
   },
 };
 
@@ -46,7 +56,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} ${poppins.className}`}>
         <LanguageProvider>
           <ClientDirection>
             {children}

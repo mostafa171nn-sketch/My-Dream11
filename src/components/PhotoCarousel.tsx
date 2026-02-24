@@ -7,14 +7,16 @@ import { useLanguage } from '@/lib/i18n/LanguageContext';
 type CarouselItem = string | { src: string; name: string; title: string };
 
 const images: CarouselItem[] = [
-  { src: '/images/yassin.jpg', name: 'Yassin', title: 'Top Athlete' },
-  { src: '/images/khaled.jpg', name: 'Khaled', title: 'Star Swimmer' },
+  
   '/images/1.jpg',
   '/images/2.jpg',
-  '/images/3.jpg',
+  '/images/3.jpg', 
+ { src: '/images/khaled.jpg', name: 'Khaled', title: 'Star Swimmer' },
   '/images/4.jpg',
   '/images/5.jpg',
   '/images/6.jpg',
+
+  { src: '/images/yassin.jpg', name: 'Yassin', title: 'Top Athlete' },
   '/images/8.jpg',
   '/images/whatsapp3.jpg',
   '/images/10.jpg',

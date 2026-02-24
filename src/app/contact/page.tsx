@@ -94,12 +94,12 @@ export default function Contact() {
               className="absolute text-pink-500 text-4xl animate-float-up"
               style={{
                 left: `${heart.x}%`,
-                bottom: '20%',
+                bottom: '10%',
                 animationDelay: `${heart.delay}s`,
                 opacity: 0
               }}
             >
-              ❤️
+              💖
             </div>
           ))}
         </div>

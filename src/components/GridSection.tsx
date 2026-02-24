@@ -13,14 +13,14 @@ const gridItems = [
   {
     image: '/images/3.jpg',
     title: 'khadija sameh / hala elarby',
-    subtitle: '2010/1010',
+    subtitle: '2009/2009',
     link: '/about'
   },
   {
     image:   '/images/2.jpg',
 
     title: 'yahya mohamed',
-    subtitle: '2007',
+    subtitle: '2008',
     link: '/about'
   },
   
@@ -64,7 +64,7 @@ const gridItems = [
   {
     image: '/images/yara1.jpeg',
     title: 'Yara Shref',
-    subtitle: '2010',
+    subtitle: '2009',
     link: '/about'
   }
 ];

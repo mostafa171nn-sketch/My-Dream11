@@ -7,7 +7,7 @@ export const ar = {
   
   // Hero
   heroTitle: 'أكادمية',
-  heroSubtitle: 'حلمي',
+  heroSubtitle: 'ماي دريم',
   heroText: 'حوّل أحلامك إلى حقيقة',
   joinUsNow: 'انضم إلينا الآن',
   yearsExperience: 'سنوات خبرة',

@@ -1,5 +1,4 @@
 'use client';
-
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
@@ -21,6 +20,7 @@ export default function Home() {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 2000);
+
 
     return () => clearTimeout(timer);
   }, []);

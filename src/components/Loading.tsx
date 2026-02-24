@@ -21,25 +21,93 @@ export default function Loading({ text, fullScreen = true }: LoadingProps) {
         width: '100%'
       } : undefined}
     >
-      <div className="wheel-and-hamster">
-        <div className="wheel"></div>
-        <div className="spoke"></div>
-        <div className="hamster">
-          <div className="hamster__head">
-            <div className="hamster__ear"></div>
-            <div className="hamster__eye"></div>
-            <div className="hamster__nose"></div>
-          </div>
-          <div className="hamster__body">
-            <div className="hamster__limb--fr"></div>
-            <div className="hamster__limb--fl"></div>
-            <div className="hamster__limb--br"></div>
-            <div className="hamster__limb--bl"></div>
-            <div className="hamster__tail"></div>
-          </div>
-        </div>
+      <div className="loader">
+        <style jsx>{`
+          .loader {
+            position: relative;
+            width: 108px;
+            display: flex;
+            justify-content: space-between;
+          }
+          .loader::after,
+          .loader::before {
+            content: "";
+            display: inline-block;
+            width: 48px;
+            height: 48px;
+            background-color: #fff;
+            background-image: radial-gradient(circle 14px, #0d161b 100%, transparent 0);
+            background-repeat: no-repeat;
+            border-radius: 50%;
+            animation: eyeMove 10s infinite, blink 10s infinite;
+          }
+          @keyframes eyeMove {
+            0%,
+            10% {
+              background-position: 0px 0px;
+            }
+            13%,
+            40% {
+              background-position: -15px 0px;
+            }
+            43%,
+            70% {
+              background-position: 15px 0px;
+            }
+            73%,
+            90% {
+              background-position: 0px 15px;
+            }
+            93%,
+            100% {
+              background-position: 0px 0px;
+            }
+          }
+          @keyframes blink {
+            0%,
+            10%,
+            12%,
+            20%,
+            22%,
+            40%,
+            42%,
+            60%,
+            62%,
+            70%,
+            72%,
+            90%,
+            92%,
+            98%,
+            100% {
+              height: 48px;
+            }
+            11%,
+            21%,
+            41%,
+            61%,
+            71%,
+            91%,
+            99% {
+              height: 18px;
+            }
+          }
+        `}</style>
       </div>
-      {displayText && <div className="loading-text" style={{ color: 'white' }}>{displayText}</div>}
+      <div style={{ marginTop: '30px', textAlign: 'center' }}>
+        <span style={{ 
+          
+          color:'while',
+          
+          fontSize: '1.0rem',
+          fontWeight: 'bolder'
+        }}>
+          My Dream Academy
+        </span>
+        <span style={{ 
+          animation: 'loadingBlink 1s infinite',
+          marginLeft: '4px'
+        }}>.</span>
+      </div>
     </div>
   );
 }
