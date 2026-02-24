@@ -17,7 +17,7 @@ const Marquee = () => {
 
   return (
     <div 
-      className="hidden md:block relative overflow-hidden bg-gradient-to-r from-blue-700 via-cyan-500 to-blue-700 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-1 md:py-5"
+      className="hidden md:block relative overflow-hidden bg-gradient-to-r from-blue-700 via-cyan-500 to-blue-700 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-1 md:py-2"
       dir="ltr"
     >
       {/* Left gradient fade - matching background */}

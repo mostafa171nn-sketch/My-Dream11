@@ -335,7 +335,9 @@ body {
 .dark .loading-text {
   color: #aaa;
 }
-
+.colorr{
+  color: #349e9e;
+}
 /* New Card Animation - From Uiverse.io by Pranali9922 */
 .experience-card,
 .champions-card {

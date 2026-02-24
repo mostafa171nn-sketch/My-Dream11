@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect, MouseEvent } from 'react';
+import { useState, useEffect } from 'react';
 import ThemeToggle from './ThemeToggle';
 import LanguageSwitcher from './LanguageSwitcher';
 import LoadingLink from './LoadingLink';
@@ -35,12 +35,7 @@ const Navbar = () => {
     }
   }, []);
 
-  const toggleDarkMode = (e?: MouseEvent) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    
+  const toggleDarkMode = () => {
     const newIsDark = !isDark;
     setIsDark(newIsDark);
     
@@ -57,23 +52,23 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={`bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-gray-900 dark:to-gray-800 text-white shadow-lg sticky top-0 bottom-1 z-20 transition-transform duration-300 ${isHidden ? '-translate-y-full' : 'translate-y-0'}`} dir={isRTL ? 'rtl' : 'ltr'}>
+    <nav className={`bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-gray-900 dark:to-gray-800 text-white shadow-lg sticky top-0 z-50 transition-transform duration-300 ${isHidden ? '-translate-y-full' : 'translate-y-0'}`} dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="container mx-auto px-2">
         {/* Mobile Nav - Logo centered with links below */}
         <div className="md:hidden flex flex-col items-center py-1 relative" dir={isRTL ? 'rtl' : 'ltr'}>
+          {/* Language Switcher - Right in English, Left in Arabic */}
+          <div className={`absolute top-6 ${isRTL ? 'left-2 right-2' : 'right-2 left-2'}`}>
+            <div className="scale-90">
+              <LanguageSwitcher />
+            </div>
+          </div>
+          
           {/* Dark Mode Toggle - Top right corner - Clickable text */}
           <div 
-            className="absolute top-4 right-2 cursor-pointer bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg transition-colors duration-300"
+            className="absolute top-5 right-5 cursor-pointer bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg transition-colors duration-300"
             onClick={toggleDarkMode}
           >
             <span className="text-xs font-medium">{isDark ? (isRTL ? 'الوضع الفاتح' : 'Light Mode') : (isRTL ? 'الوضع الداكن' : 'Dark Mode')}</span>
-          </div>
-          
-          {/* Language Switcher - Right in English, Left in Arabic */}
-          <div className={`absolute top-6 ${isRTL ? 'left-2 right-2' : 'right-2 left-2'}`}>
-            <div className="scale-90 "  onClick={toggleDarkMode}>
-              <LanguageSwitcher />
-            </div>
           </div>
           
           {/* Logo Only - No Text on Mobile */}
@@ -118,16 +113,16 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Nav - Logo and Menu in one row */}
-        <div className={`hidden md:flex justify-between items-center py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <div className={`hidden md:flex justify-between items-center py-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
           {/* Logo */}
           <Link href="/" className={`flex items-center space-x-3 group ${isRTL ? 'flex-row-reverse' : ''}`}>
             <img 
               src="/logoo.jpeg" 
               alt="My Dream Academy Logo" 
-              className="w-14 h-14 rounded-full object-cover ring-2 ring-white/30 group-hover:ring-white/60 transition-all duration-300"
+              className="w-12 h-12 rounded-full object-cover ring-2 ring-white/30 group-hover:ring-white/60 transition-all duration-300"
             />
-            <span className="text-4xl font-bold">
-            My<span className="dream"> Dream</span> Academy
+            <span className="text-2xl font-bold">
+            My <span className='colorr'>Dream </span> Academy
             </span>
           </Link>
 
@@ -168,10 +163,13 @@ const Navbar = () => {
             
             {/* Dark Mode Toggle - Desktop */}
             <div className={isRTL ? 'mr-2 ml-0' : 'ml-2 mr-0'}>
-              <ThemeToggle id="desktop-toggle" />
+              <ThemeToggle id="desktop-toggle" isDark={isDark} onToggle={toggleDarkMode} />
             </div>
           </div>
         </div>
+
+        {/* Mobile Menu Button */}
+     
 
         {/* Mobile Menu */}
         {isMenuOpen && (
@@ -231,7 +229,7 @@ const Navbar = () => {
               {/* Dark Mode Toggle - Full Width */}
               <div className="flex items-center justify-between bg-white/10 px-4 py-3 rounded-lg mt-2">
                 <span className="text-sm font-medium">{t('darkMode')}</span>
-                <ThemeToggle id="mobile-menu-toggle" />
+                <ThemeToggle id="mobile-menu-toggle" isDark={isDark} onToggle={toggleDarkMode} />
               </div>
             </div>
           </div>

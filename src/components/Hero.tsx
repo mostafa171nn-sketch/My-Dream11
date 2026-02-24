@@ -65,7 +65,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[86vh] flex md:items-center md:justify-center items-center justify-center overflow-hidden">
+    <section className="relative min-h-[86vh] md:h-screen flex md:items-center md:justify-center items-center justify-center overflow-hidden">
       <div className="absolute inset-0 overflow-hidden">
         <img 
           src="/images/background.jpg" 
@@ -95,7 +95,7 @@ const Hero = () => {
           <span className="text-s md:text-1xl text-gray-300 dark:text-gray-300 mb-20">{displayText}<span className="animate-pulse"></span></span>
         </div>
         
-        <div className="flex flex-row  md:gap-4 justify-center items-center mt-1 md:mt-12 w-full max-w-2xl mx-auto" dir="ltr">
+        <div className="flex flex-row md:gap-2 lg:gap-4 justify-center items-center mt-1 md:mt-12 w-full max-w-2xl mx-auto" dir="ltr">
           <div className="experience-card w-32 sm:w-40 md:w-64 lg:w-[19rem] h-20 sm:h-24 md:h-40 lg:h-[12rem] duration-500 group relative rounded-l-3xl bg-neutral-300 dark:bg-neutral-700 p-2 md:p-4 flex flex-col justify-center items-center cursor-pointer overflow-hidden">
             <div className="card-inner-experience"></div>
             <div className="circle-experience circle-experience-1"></div>
